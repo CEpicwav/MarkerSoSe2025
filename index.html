@@ -2,21 +2,40 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>AR Urlaubskarte</title>
+    <title>AR Insel mit Flugzeug</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
   </head>
-  <body style="margin : 0px; overflow: hidden;">
-    <a-scene embedded arjs>
+  <body style="margin: 0; overflow: hidden;">
+    <!-- Debug UI deaktiviert -->
+    <a-scene embedded arjs="debugUIEnabled: false;">
+      <!-- Dein Marker -->
       <a-marker type="pattern" url="marker.patt">
-        <a-box position="0 0.5 0" color="tomato"></a-box>
+
+        <!-- Insel -->
+        <a-cylinder position="0 0 0" radius="1" height="0.1" color="#228B22"></a-cylinder>
+
+        <!-- Flugzeugkörper -->
+        <a-box position="0 0.2 0" depth="0.8" height="0.1" width="0.2" color="#FF4136"></a-box>
+
+        <!-- Flügel -->
+        <a-box position="0 0.2 0" depth="0.1" height="0.01" width="0.8" color="#AAAAAA"></a-box>
+
+        <!-- Seitenleitwerk -->
+        <a-box position="0 0.3 -0.3" depth="0.01" height="0.2" width="0.1" color="#AAAAAA"></a-box>
+
+        <!-- Propeller -->
+        <a-cylinder position="0 0.2 0.4" radius="0.05" height="0.01" color="#000" rotation="0 0 90"></a-cylinder>
+        <a-cylinder position="0 0.2 0.4" radius="0.05" height="0.01" color="#000" rotation="90 0 0"></a-cylinder>
+
+        <!-- Sterne -->
         <a-entity id="stars"></a-entity>
+
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-      // JS: Sterne generieren
       const starContainer = document.getElementById("stars");
 
       const stars = [];
@@ -24,7 +43,7 @@
       for (let i = 0; i < 30; i++) {
         const star = {
           x: (Math.random() - 0.5) * 4,
-          y: Math.random() * 3,
+          y: Math.random() * 3 + 0.5,
           z: (Math.random() - 0.5) * 4,
           color: '#FFF'
         };
