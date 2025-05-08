@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AR Urlaubskarte</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+  </head>
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+      <a-marker type="pattern" url="marker.patt">
+        <a-box position="0 0.5 0" color="tomato"></a-box>
+        <a-entity id="stars"></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      // JS: Sterne generieren
+      const starContainer = document.getElementById("stars");
+
+      const stars = [];
+
+      for (let i = 0; i < 30; i++) {
+        const star = {
+          x: (Math.random() - 0.5) * 4,
+          y: Math.random() * 3,
+          z: (Math.random() - 0.5) * 4,
+          color: '#FFF'
+        };
+        stars.push(star);
+
+        const el = document.createElement('a-sphere');
+        el.setAttribute('radius', 0.05);
+        el.setAttribute('color', star.color);
+        el.setAttribute('position', `${star.x} ${star.y} ${star.z}`);
+        starContainer.appendChild(el);
+      }
+    </script>
+  </body>
+</html>
